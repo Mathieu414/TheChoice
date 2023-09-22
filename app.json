@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "RouteChoiceGame",
-    "slug": "RouteChoiceGame",
+    "slug": "routechoicegame",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mperrin.routechoicegame"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "042befc9-7822-44e9-8829-6fb32e5395e9"
+      }
+    },
+    "owner": "mperrin"
   }
 }
