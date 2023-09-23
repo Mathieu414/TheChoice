@@ -5,7 +5,7 @@ export function generateRandomPoints(svgHeight, windowWidth) {
   const points = [];
 
   let x = windowWidth / 2;
-  let y = svgHeight - 1;
+  let y = svgHeight - 47.5;
   let totalDistance = 0;
 
   points.push(`${x},${y}`);
@@ -28,7 +28,7 @@ export function generateRandomPoints(svgHeight, windowWidth) {
 
     // Check if y is too close to the top edge and end the path
     if (y < minDistance) {
-      y = 10;
+      y = minDistance;
       i = numPoints;
     }
 
@@ -36,7 +36,7 @@ export function generateRandomPoints(svgHeight, windowWidth) {
   }
 
   // Add the last point at the bottom center of the screen
-  points.push(`${windowWidth / 2},${1}`);
+  points.push(`${windowWidth / 2},${47.5}`);
 
   return { points: points.join(" "), totalDistance: totalDistance };
 }

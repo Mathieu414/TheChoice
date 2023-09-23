@@ -25,13 +25,19 @@
       "package": "com.mperrin.routechoicegame"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     },
     "extra": {
       "eas": {
         "projectId": "042befc9-7822-44e9-8829-6fb32e5395e9"
       }
     },
-    "owner": "mperrin"
+    "owner": "mperrin",
+    "plugins": [
+      "expo-router"
+    ],
+    "scheme": "myapp"
+
   }
 }

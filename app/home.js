@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, View, StyleSheet, Dimensions, Text } from "react-native";
 import { Button, Dialog } from "@rneui/themed";
-import SafeViewAndroid from "./components/SafeViewAndroid";
-import RandomPath from "./components/RandomPath";
-import { generateRandomPoints } from "./utils/utils";
-import AnswerDialog from "./components/AnswerDialog";
-import Svg, { Circle, Rect, Polyline } from "react-native-svg";
+import SafeViewAndroid from "../components/SafeViewAndroid";
+import RandomPath from "../components/RandomPath";
+import { generateRandomPoints } from "../utils/utils";
+import AnswerDialog from "../components/AnswerDialog";
+import Svg, { Circle, Line } from "react-native-svg";
 import { color } from "@rneui/base";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const svgHeight = windowHeight * 0.7;
+const svgHeight = windowHeight * 0.8;
 
 const App = () => {
   const [totalDistance1, setTotalDistance1] = useState(0);
@@ -50,8 +50,32 @@ const App = () => {
     <>
       <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
         <Svg height={svgHeight}>
+          <Circle
+            cx={windowWidth / 2}
+            cy="47.5"
+            r="30"
+            stroke="purple"
+            strokeWidth="2.5"
+            fillOpacity={0}
+          />
           <RandomPath stroke={"black"} points={points1} />
+          <Line
+            x1={windowWidth / 2}
+            y1="77.5"
+            x2={windowWidth / 2}
+            y2={svgHeight - 77.5}
+            stroke="purple"
+            strokeWidth="2.5"
+          />
           <RandomPath stroke={"red"} points={points2} />
+          <Circle
+            cx={windowWidth / 2}
+            cy={svgHeight - 47.5}
+            r="30"
+            stroke="purple"
+            strokeWidth="2.5"
+            fillOpacity={0}
+          />
         </Svg>
         <View style={styles.buttonsContainer}>
           <View style={styles.inlineButtonsContainer}>
