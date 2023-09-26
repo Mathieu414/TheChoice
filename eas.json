@@ -3,7 +3,7 @@
     "version": ">= 5.2.0"
   },
   "build": {
-    "local": {
+    "preview": {
       "android": {
         "buildType": "apk"
       }

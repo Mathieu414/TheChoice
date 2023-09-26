@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, StyleSheet, Dimensions, Text } from "react-native";
-import { Button, Dialog } from "@rneui/themed";
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Dimensions,
+  Text,
+  Pressable,
+  Platform,
+  StatusBar,
+  TouchableOpacity,
+} from "react-native";
+import { Icon } from "@rneui/themed";
+import { Link, Stack } from "expo-router";
+
 import SafeViewAndroid from "../components/SafeViewAndroid";
-import RandomPath from "../components/RandomPath";
+import RouteChoice from "../components/home/RouteChoice/RouteChoice";
 import { generateRandomPoints } from "../utils/utils";
 import AnswerDialog from "../components/AnswerDialog";
-import Svg, { Circle, Line } from "react-native-svg";
-import { color } from "@rneui/base";
+import { updateStatistics, removeStatistics } from "../database/db";
+import ChoiceButtons from "../components/home/ChoiceButtons/ChoiceButtons";
+import SimpleMenu from "../components/popUpMenu/SimpleMenu";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -20,6 +33,8 @@ const App = () => {
   const [points2, setPoints2] = useState();
 
   const [updatePoints, setUpdatePoints] = useState(0);
+
+  const [userStatistics, setUserStatistics] = useState();
 
   useEffect(() => {
     const { points: newPoints1, totalDistance: newTotalDistance1 } =
@@ -36,66 +51,37 @@ const App = () => {
   const [visible2, setVisible2] = useState(false);
 
   const handleButtonPress = (buttonNumber) => {
+    let answer = false;
     if (
       (buttonNumber === 1 && totalDistance1 < totalDistance2) ||
       (buttonNumber === 2 && totalDistance2 < totalDistance1)
     ) {
       setVisible1(true);
+      answer = true;
     } else {
       setVisible2(true);
+      answer = false;
     }
+    updateStatistics(answer, totalDistance1 - totalDistance2);
   };
 
   return (
     <>
       <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
-        <Svg height={svgHeight}>
-          <Circle
-            cx={windowWidth / 2}
-            cy="47.5"
-            r="30"
-            stroke="purple"
-            strokeWidth="2.5"
-            fillOpacity={0}
-          />
-          <RandomPath stroke={"black"} points={points1} />
-          <Line
-            x1={windowWidth / 2}
-            y1="77.5"
-            x2={windowWidth / 2}
-            y2={svgHeight - 77.5}
-            stroke="purple"
-            strokeWidth="2.5"
-          />
-          <RandomPath stroke={"red"} points={points2} />
-          <Circle
-            cx={windowWidth / 2}
-            cy={svgHeight - 47.5}
-            r="30"
-            stroke="purple"
-            strokeWidth="2.5"
-            fillOpacity={0}
-          />
-        </Svg>
-        <View style={styles.buttonsContainer}>
-          <View style={styles.inlineButtonsContainer}>
-            <Button
-              title="Choix Noir"
-              buttonStyle={[styles.button, { backgroundColor: "black" }]}
-              containerStyle={[styles.buttonContainer, { marginEnd: 20 }]}
-              titleStyle={{ fontWeight: "bold" }}
-              onPress={() => handleButtonPress(1)}
-            />
-            <Button
-              title="Choix Rouge"
-              buttonStyle={[styles.button, { backgroundColor: "red" }]}
-              containerStyle={[styles.buttonContainer, { marginStart: 20 }]}
-              titleStyle={{ fontWeight: "bold" }}
-              onPress={() => handleButtonPress(2)}
-            />
-          </View>
-        </View>
-
+        <Stack.Screen
+          options={{
+            headerTransparent: true,
+            headerRight: () => <SimpleMenu removeFunction={removeStatistics} />,
+            headerTitle: "",
+          }}
+        />
+        <RouteChoice
+          svgHeight={svgHeight}
+          windowWidth={windowWidth}
+          points1={points1}
+          points2={points2}
+        />
+        <ChoiceButtons pressCallback={handleButtonPress} />
         <AnswerDialog
           answer={true}
           totalDistance1={totalDistance1}
@@ -106,7 +92,6 @@ const App = () => {
             setUpdatePoints(updatePoints + 1);
           }}
         />
-
         <AnswerDialog
           answer={false}
           totalDistance1={totalDistance1}
@@ -121,25 +106,5 @@ const App = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonsContainer: {
-    alignItems: "center",
-    height: "20%",
-  },
-  inlineButtonsContainer: {
-    flexDirection: "row",
-  },
-  button: {
-    borderWidth: 2,
-    borderColor: "white",
-    borderRadius: 50,
-    height: 100,
-  },
-  buttonContainer: {
-    marginVertical: 10,
-    width: 150,
-  },
-});
 
 export default App;

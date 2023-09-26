@@ -13,7 +13,6 @@ export function generateRandomPoints(svgHeight, windowWidth) {
   for (let i = 0; i < numPoints; i++) {
     const angle = (Math.random() * 0.5 + 0.5) * 2 * Math.PI;
     const distance = Math.random() * (maxDistance - minDistance) + minDistance;
-    totalDistance += distance;
     x += Math.cos(angle) * distance;
     y += Math.sin(angle) * distance;
 
@@ -31,6 +30,11 @@ export function generateRandomPoints(svgHeight, windowWidth) {
       y = minDistance;
       i = numPoints;
     }
+
+    totalDistance += Math.sqrt(
+      Math.pow(x - points[points.length - 1].split(",")[0], 2) +
+        Math.pow(y - points[points.length - 1].split(",")[1], 2)
+    );
 
     points.push(`${x},${y}`);
   }

@@ -28,16 +28,18 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "extra": {
-      "eas": {
-        "projectId": "042befc9-7822-44e9-8829-6fb32e5395e9"
-      }
-    },
     "owner": "mperrin",
     "plugins": [
       "expo-router"
     ],
-    "scheme": "myapp"
-
+    "scheme": "myapp",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6f93a313-5a4a-4107-a0cb-764658563a65"
+      }
+    }
   }
 }

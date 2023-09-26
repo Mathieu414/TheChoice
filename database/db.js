@@ -6,15 +6,56 @@ export const storeUserStatistics = async (statistics) => {
   } catch (error) {
     console.log(error);
   }
+  console.log("Done.");
 };
 
 export const getUserStatistics = async () => {
   try {
     const value = await AsyncStorage.getItem("userStatistics");
-    if (value !== null) {
-      return JSON.parse(value);
-    }
+    return value != null ? JSON.parse(value) : null;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const mergeUserStatistics = async (statistics) => {
+  try {
+    console.log("Merge Statistics : ", statistics);
+    await AsyncStorage.mergeItem("userStatistics", JSON.stringify(statistics));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const removeStatistics = async () => {
+  try {
+    await AsyncStorage.removeItem("userStatistics");
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateStatistics = async (answer, difference) => {
+  let userStatistics = await getUserStatistics();
+
+  console.log("User statistics : ", userStatistics);
+
+  if (userStatistics != null) {
+    let newUserStatistics = {
+      score: answer,
+      difference: Math.abs(difference),
+    };
+    userStatistics.push(newUserStatistics);
+    console.log("New user statistics : ", userStatistics);
+    await storeUserStatistics(userStatistics);
+  } else {
+    const newUserStatistics = [
+      {
+        score: answer,
+        difference: Math.abs(difference),
+      },
+    ];
+    console.log("New user statistics : ", newUserStatistics);
+    await storeUserStatistics(newUserStatistics);
   }
 };
