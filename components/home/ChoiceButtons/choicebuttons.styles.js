@@ -3,11 +3,10 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   buttonsContainer: {
     alignItems: "center",
-    height: "20%",
-  },
-  inlineButtonsContainer: {
     flexDirection: "row",
+    justifyContent: "center",
   },
+  inlineButtonsContainer: {},
   button: {
     borderWidth: 2,
     borderColor: "white",

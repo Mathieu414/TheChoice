@@ -6,7 +6,6 @@ import styles from './choicebuttons.styles'
 
 const ChoiceButtons = ({pressCallback}) => {
   return <View style={styles.buttonsContainer}>
-            <View style={styles.inlineButtonsContainer}>
                 <Button
                 title="Choix Noir"
                 buttonStyle={[styles.button, { backgroundColor: "black" }]}
@@ -21,7 +20,6 @@ const ChoiceButtons = ({pressCallback}) => {
                 titleStyle={{ fontWeight: "bold" }}
                 onPress={() => pressCallback(2)}
                 />
-            </View>
         </View>
 }
 

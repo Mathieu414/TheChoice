@@ -29,7 +29,7 @@ const SimpleMenu = ({ removeFunction }) => {
             </ListItem>
           </TouchableOpacity>
         </Link>
-        <TouchableOpacity on={removeFunction()}>
+        <TouchableOpacity onPress={() => {removeFunction(); toggleDialog()}}>
           <ListItem>
             <Icon name="reload1" type="antdesign" />
             <ListItem.Content>

@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { SafeAreaView, View, StyleSheet, Dimensions, Text } from "react-native";
-import { Button, Dialog } from "@rneui/themed";
+import { Button, Dialog, ListItem } from "@rneui/themed";
 import SafeViewAndroid from "../components/SafeViewAndroid";
 import {
   storeUserStatistics,
@@ -41,23 +41,46 @@ export default function Statistics() {
   return (
     <>
       <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
-        <Stack.Screen
-          options={{
-            headerShadowVisible: false,
-            headerTitle: "Statistics",
-          }}
-        />
         <View style={styles.scoreContainer}>
-          <Text style={styles.scoreText}>
-            <Text style={{ color: "green" }}>{trueCount}</Text>
-            <Text> : </Text>
-            <Text style={{ color: "red" }}>{falseCount}</Text>
-          </Text>
-          <Text style={styles.scoreText}>
-            {trueCount || falseCount
-              ? `${(trueCount / (trueCount + falseCount)) * 100}%`
-              : "Pas de données"}
-          </Text>
+          <View style={{ alignItems: "center" }}>
+            <Text style={styles.scoreSubtitle}>Score</Text>
+            <Text style={styles.scoreText}>
+              <Text style={{ color: "green" }}>{trueCount}</Text>
+              <Text> : </Text>
+              <Text style={{ color: "red" }}>{falseCount}</Text>
+            </Text>
+          </View>
+          <ListItem bottomDivider>
+            <ListItem.Content>
+              <ListItem.Subtitle style={styles.scoreSubtitle}>
+                Réussite
+              </ListItem.Subtitle>
+              <ListItem.Title style={styles.successText}>
+                {trueCount || falseCount
+                  ? `${Math.round(
+                      (trueCount / (trueCount + falseCount)) * 100
+                    )}%`
+                  : "Pas de données"}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+          <ListItem bottomDivider>
+            <ListItem.Content>
+              <ListItem.Subtitle style={styles.scoreSubtitle}>
+                Ecart moyen des mauvaises réponses
+              </ListItem.Subtitle>
+              <ListItem.Title style={styles.successText}>
+                {userStatistics && falseCount > 0
+                  ? `${Math.round(
+                      userStatistics
+                        .filter((stat) => !stat.score)
+                        .reduce((acc, stat) => acc + stat.difference, 0) /
+                        falseCount
+                    )}`
+                  : "Pas de données"}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
         </View>
       </SafeAreaView>
     </>
@@ -67,10 +90,18 @@ export default function Statistics() {
 const styles = StyleSheet.create({
   scoreContainer: {
     flex: 1,
+    backgroundColor: "white",
   },
   scoreText: {
+    fontSize: 80,
+    fontWeight: "bold",
+  },
+  scoreSubtitle: {
+    fontSize: 18,
+    color: "grey",
+  },
+  successText: {
     fontSize: 40,
     fontWeight: "bold",
-    textAlign: "center",
   },
 });
