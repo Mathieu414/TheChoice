@@ -41,10 +41,10 @@ const AnswerBottomSheet = ({ bottomSheetModalRef, snapPoints, answer, updatePoin
 
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
           <Text style={[styles.text, { color: textColor }]}>
-            {`Choix noir : ${Math.round(totalDistance1)}`}
+            {`Choix noir : ${Math.round(totalDistance1 / 4)}m`}
           </Text>
           <Text style={[styles.text, { color: textColor }]}>
-            {`Choix rouge : ${Math.round(totalDistance2)}`}
+            {`Choix rouge : ${Math.round(totalDistance2 / 4)}m`}
           </Text>
         </View>
         <Button

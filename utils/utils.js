@@ -1,4 +1,6 @@
 export function generateRandomPoints(svgHeight, windowWidth) {
+  const dpRatio = 0.15875;
+
   const numPoints = 7;
   const minDistance = svgHeight / numPoints;
   const maxDistance = svgHeight / (numPoints / 2);
@@ -31,10 +33,12 @@ export function generateRandomPoints(svgHeight, windowWidth) {
       i = numPoints;
     }
 
-    totalDistance += Math.sqrt(
-      Math.pow(x - points[points.length - 1].split(",")[0], 2) +
-        Math.pow(y - points[points.length - 1].split(",")[1], 2)
-    );
+    // totalDistance is now in millimeters
+    totalDistance +=
+      Math.sqrt(
+        Math.pow(x - points[points.length - 1].split(",")[0], 2) +
+          Math.pow(y - points[points.length - 1].split(",")[1], 2)
+      ) / dpRatio;
 
     points.push(`${x},${y}`);
   }

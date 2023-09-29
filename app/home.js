@@ -5,49 +5,35 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import {
-  SafeAreaView,
-  View,
-  StyleSheet,
-  Dimensions,
-  Text,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
+import { SafeAreaView, useWindowDimensions } from "react-native";
 import { Icon } from "@rneui/themed";
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-  BottomSheetBackdrop,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 import SafeViewAndroid from "../components/SafeViewAndroid";
 import RouteChoice from "../components/home/RouteChoice/RouteChoice";
 import { generateRandomPoints } from "../utils/utils";
-import AnswerDialog from "../components/AnswerDialog";
 import { updateStatistics, removeStatistics } from "../database/db";
 import ChoiceButtons from "../components/home/ChoiceButtons/ChoiceButtons";
-import SimpleMenu from "../components/popUpMenu/SimpleMenu";
 import AnswerBottomSheet from "../components/home/AnswerBottomSheet/AnswerBottomSheet";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const svgHeight = windowHeight * 0.8;
-
 const App = () => {
+  const { height, width, scale, fonctScale } = useWindowDimensions();
+  console.log("height", height);
+  console.log("width", width);
+  const svgHeight = height * 0.8;
+  const yOffset = 47.5;
+
   const [totalDistance1, setTotalDistance1] = useState(0);
   const [totalDistance2, setTotalDistance2] = useState(0);
 
   const [points1, setPoints1] = useState();
   const [points2, setPoints2] = useState();
 
-  const [userStatistics, setUserStatistics] = useState();
-
   const updatePoints = () => {
     const { points: newPoints1, totalDistance: newTotalDistance1 } =
-      generateRandomPoints(svgHeight, windowWidth);
+      generateRandomPoints(svgHeight, width);
     const { points: newPoints2, totalDistance: newTotalDistance2 } =
-      generateRandomPoints(svgHeight, windowWidth);
+      generateRandomPoints(svgHeight, width);
     setTotalDistance1(newTotalDistance1);
     setTotalDistance2(newTotalDistance2);
     setPoints1(newPoints1);
@@ -90,9 +76,10 @@ const App = () => {
         <BottomSheetModalProvider>
           <RouteChoice
             svgHeight={svgHeight}
-            windowWidth={windowWidth}
+            windowWidth={width}
             points1={points1}
             points2={points2}
+            yOffset={yOffset}
           />
           <ChoiceButtons pressCallback={handleButtonPress} />
           <AnswerBottomSheet

@@ -4,21 +4,21 @@ import { Button } from '@rneui/themed'
 
 import styles from './choicebuttons.styles'
 
-const ChoiceButtons = ({pressCallback}) => {
-  return <View style={styles.buttonsContainer}>
+const ChoiceButtons = ({ pressCallback }) => {
+        return <View style={styles.buttonsContainer}>
                 <Button
-                title="Choix Noir"
-                buttonStyle={[styles.button, { backgroundColor: "black" }]}
-                containerStyle={[styles.buttonContainer, { marginEnd: 20 }]}
-                titleStyle={{ fontWeight: "bold" }}
-                onPress={() => pressCallback(1)}
+                        title="Choix Noir"
+                        buttonStyle={[styles.button, { backgroundColor: "black" }]}
+                        containerStyle={[styles.buttonContainer, { marginEnd: 20 }]}
+                        titleStyle={styles.title}
+                        onPress={() => pressCallback(1)}
                 />
                 <Button
-                title="Choix Rouge"
-                buttonStyle={[styles.button, { backgroundColor: "red" }]}
-                containerStyle={[styles.buttonContainer, { marginStart: 20 }]}
-                titleStyle={{ fontWeight: "bold" }}
-                onPress={() => pressCallback(2)}
+                        title="Choix Rouge"
+                        buttonStyle={[styles.button, { backgroundColor: "red" }]}
+                        containerStyle={[styles.buttonContainer, { marginStart: 20 }]}
+                        titleStyle={styles.title}
+                        onPress={() => pressCallback(2)}
                 />
         </View>
 }

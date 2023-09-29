@@ -56,6 +56,7 @@ export default function Layout() {
           tabBarIcon: ({ color, size }) => (
             <Icon name="setting" type="antdesign" color={color} size={size} />
           ),
+          href: null,
         }}
       />
     </Tabs>

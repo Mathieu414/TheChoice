@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: 150,
   },
+  title: { fontFamily: "DMBold" },
 });
 
 export default styles;

@@ -6,14 +6,16 @@ import {
   storeUserStatistics,
   getUserStatistics,
   mergeUserStatistics,
+  removeStatistics,
 } from "../database/db";
 import { Stack, useRouter } from "expo-router";
-import { color } from "@rneui/base";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function Statistics() {
   const [userStatistics, setUserStatistics] = useState();
+  const [reset, setReset] = useState(false);
 
-  const router = useRouter();
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     // Get user statistics and store in a variable
@@ -23,7 +25,7 @@ export default function Statistics() {
       console.log(userStatistics);
     }
     fetchUserStatistics();
-  }, []);
+  }, [isFocused, reset]);
 
   // Count the number of true and false scores
   let trueCount = 0;
@@ -60,7 +62,7 @@ export default function Statistics() {
                   ? `${Math.round(
                       (trueCount / (trueCount + falseCount)) * 100
                     )}%`
-                  : "Pas de données"}
+                  : "-"}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
@@ -77,11 +79,32 @@ export default function Statistics() {
                         .reduce((acc, stat) => acc + stat.difference, 0) /
                         falseCount
                     )}`
-                  : "Pas de données"}
+                  : "-"}
               </ListItem.Title>
             </ListItem.Content>
           </ListItem>
         </View>
+        <Button
+          title="Reset statistics"
+          buttonStyle={{
+            borderColor: "red",
+          }}
+          type="outline"
+          titleStyle={{ color: "red", fontFamily: "DMBold" }}
+          containerStyle={{
+            marginHorizontal: 70,
+            marginBottom: 40,
+          }}
+          icon={{
+            name: "reload1",
+            type: "antdesign",
+            color: "red",
+          }}
+          onPress={() => {
+            removeStatistics();
+            setReset(!reset);
+          }}
+        />
       </SafeAreaView>
     </>
   );
@@ -99,6 +122,7 @@ const styles = StyleSheet.create({
   scoreSubtitle: {
     fontSize: 18,
     color: "grey",
+    fontFamily: "DMRegular",
   },
   successText: {
     fontSize: 40,
