@@ -78,7 +78,7 @@ export default function Statistics() {
                         .filter((stat) => !stat.score)
                         .reduce((acc, stat) => acc + stat.difference, 0) /
                         falseCount
-                    )}`
+                    )}m`
                   : "-"}
               </ListItem.Title>
             </ListItem.Content>

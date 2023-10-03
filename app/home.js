@@ -11,7 +11,7 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 import SafeViewAndroid from "../components/SafeViewAndroid";
 import RouteChoice from "../components/home/RouteChoice/RouteChoice";
-import { generateRandomPoints } from "../utils/utils";
+import { generatePaths } from "../utils/utils";
 import { updateStatistics, removeStatistics } from "../database/db";
 import ChoiceButtons from "../components/home/ChoiceButtons/ChoiceButtons";
 import AnswerBottomSheet from "../components/home/AnswerBottomSheet/AnswerBottomSheet";
@@ -21,7 +21,7 @@ const App = () => {
   console.log("height", height);
   console.log("width", width);
   const svgHeight = height * 0.8;
-  const yOffset = 47.5;
+  const yOffset = 80;
 
   const [totalDistance1, setTotalDistance1] = useState(0);
   const [totalDistance2, setTotalDistance2] = useState(0);
@@ -30,10 +30,23 @@ const App = () => {
   const [points2, setPoints2] = useState();
 
   const updatePoints = () => {
-    const { points: newPoints1, totalDistance: newTotalDistance1 } =
-      generateRandomPoints(svgHeight, width);
-    const { points: newPoints2, totalDistance: newTotalDistance2 } =
-      generateRandomPoints(svgHeight, width);
+    const maxPoints = 7;
+    const minDistance = svgHeight / maxPoints;
+    const maxDistance = svgHeight / (maxPoints / 2);
+    const {
+      path1: newPoints1,
+      length1: newTotalDistance1,
+      path2: newPoints2,
+      length2: newTotalDistance2,
+    } = generatePaths(
+      svgHeight,
+      width,
+      minDistance,
+      maxDistance,
+      maxPoints,
+      yOffset,
+      "hard"
+    );
     setTotalDistance1(newTotalDistance1);
     setTotalDistance2(newTotalDistance2);
     setPoints1(newPoints1);
