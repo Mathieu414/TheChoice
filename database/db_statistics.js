@@ -6,7 +6,6 @@ export const storeUserStatistics = async (statistics) => {
   } catch (error) {
     console.log(error);
   }
-  console.log("Done.");
 };
 
 export const getUserStatistics = async () => {

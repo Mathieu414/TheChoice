@@ -1,13 +1,13 @@
 import { React, useEffect, useState } from "react";
-import { SafeAreaView, View, StyleSheet, Dimensions, Text } from "react-native";
+import { View, StyleSheet, Dimensions, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Dialog, ListItem } from "@rneui/themed";
-import SafeViewAndroid from "../components/SafeViewAndroid";
 import {
   storeUserStatistics,
   getUserStatistics,
   mergeUserStatistics,
   removeStatistics,
-} from "../database/db";
+} from "../database/db_statistics";
 import { Stack, useRouter } from "expo-router";
 import { useIsFocused } from "@react-navigation/native";
 
@@ -42,7 +42,18 @@ export default function Statistics() {
 
   return (
     <>
-      <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
+      <SafeAreaView style={styles.container}>
+        <View style={{ alignItems: "center" }}>
+          <Text
+            style={{
+              fontSize: 30,
+              fontFamily: "DMBold",
+              margin: 20,
+            }}
+          >
+            Statistiques
+          </Text>
+        </View>
         <View style={styles.scoreContainer}>
           <View style={{ alignItems: "center" }}>
             <Text style={styles.scoreSubtitle}>Score</Text>
@@ -111,6 +122,7 @@ export default function Statistics() {
 }
 
 const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: "white" },
   scoreContainer: {
     flex: 1,
     backgroundColor: "white",

@@ -1,25 +1,26 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { Button } from '@rneui/themed'
 
 import styles from './choicebuttons.styles'
+import { TouchableOpacity } from '@gorhom/bottom-sheet'
 
 const ChoiceButtons = ({ pressCallback }) => {
         return <View style={styles.buttonsContainer}>
-                <Button
-                        title="Choix Noir"
-                        buttonStyle={[styles.button, { backgroundColor: "black" }]}
-                        containerStyle={[styles.buttonContainer, { marginEnd: 20 }]}
-                        titleStyle={styles.title}
-                        onPress={() => pressCallback(1)}
-                />
-                <Button
-                        title="Choix Rouge"
-                        buttonStyle={[styles.button, { backgroundColor: "red" }]}
-                        containerStyle={[styles.buttonContainer, { marginStart: 20 }]}
-                        titleStyle={styles.title}
-                        onPress={() => pressCallback(2)}
-                />
+                <View
+                        style={[styles.buttonContainer]}
+                >
+                        <TouchableOpacity style={[styles.button, , { backgroundColor: "black" }]} onPress={() => pressCallback(1)}>
+                                <Text style={styles.title}>Choix Noir</Text>
+                        </TouchableOpacity>
+                </View>
+                <View
+                        style={[styles.buttonContainer]}
+                >
+                        <TouchableOpacity style={[styles.button, , { backgroundColor: "red" }]} onPress={() => pressCallback(2)}>
+                                <Text style={styles.title}>Choix Rouge</Text>
+                        </TouchableOpacity>
+                </View>
         </View>
 }
 

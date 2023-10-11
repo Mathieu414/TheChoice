@@ -1,8 +1,14 @@
+import React, { useState } from "react";
 import { useFonts } from "expo-font";
 import { Tabs } from "expo-router";
 import { Icon } from "@rneui/themed";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+
+import MyContext from "../components/MyContext";
 
 export default function Layout() {
+  const [difficulty, setDifficulty] = useState(0);
+
   const [fontsLoaded] = useFonts({
     DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
     DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
@@ -19,46 +25,52 @@ export default function Layout() {
   }
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarShowLabel: false, // hide labels
-        headerShown: false, // hide the header
-        tabBarActiveTintColor: "#e91e63",
-      }}
-    >
-      <Tabs.Screen
-        // Name of the route to hide.
-        name="index"
-        options={{
-          // This tab will no longer show up in the tab bar.
-          href: null,
+    <BottomSheetModalProvider>
+      <Tabs
+        screenOptions={{
+          tabBarShowLabel: false, // hide labels
+          headerShown: false, // hide the header
+          tabBarActiveTintColor: "#e91e63",
         }}
-      />
-      <Tabs.Screen
-        name="home"
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home" type="antdesign" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="statistics"
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="barschart" type="antdesign" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="setting" type="antdesign" color={color} size={size} />
-          ),
-          href: null,
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          // Name of the route to hide.
+          name="index"
+          options={{
+            // This tab will no longer show up in the tab bar.
+            href: null,
+          }}
+        />
+        <Tabs.Screen
+          name="home"
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="home" type="antdesign" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="statistics"
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon
+                name="barschart"
+                type="antdesign"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="settings"
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="setting" type="antdesign" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tabs>
+    </BottomSheetModalProvider>
   );
 }

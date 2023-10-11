@@ -1,9 +1,12 @@
 import { Svg, Circle, Line } from "react-native-svg";
 import { Text } from "react-native";
 import RandomPath from "./RandomPath";
+import SegmentLength from "./SegmentLength";
 
-const RouteChoice = ({ svgHeight, windowWidth, points1, points2, yOffset }) => {
+const RouteChoice = ({ svgHeight, windowWidth, points1, points2, yOffset, segments }) => {
   const dpRatio = 0.15875;
+
+
 
   return <Svg height={svgHeight}>
     <Text style={{
@@ -22,6 +25,7 @@ const RouteChoice = ({ svgHeight, windowWidth, points1, points2, yOffset }) => {
       fillOpacity={0}
     />
     <RandomPath stroke={"black"} points={points1} />
+
     <Line
       x1={windowWidth / 2}
       y1={yOffset + (3 / dpRatio)}
@@ -39,6 +43,8 @@ const RouteChoice = ({ svgHeight, windowWidth, points1, points2, yOffset }) => {
       strokeWidth="2.5"
       fillOpacity={0}
     />
+    {segments && <SegmentLength points={points1} stroke="black" />}
+    {segments && <SegmentLength points={points2} stroke="red" />}
   </Svg>
 }
 
