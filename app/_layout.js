@@ -1,10 +1,8 @@
 import React, { useState } from "react";
+import { TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
-import { Tabs } from "expo-router";
+import { Stack, router } from "expo-router";
 import { Icon } from "@rneui/themed";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-
-import MyContext from "../components/MyContext";
 
 export default function Layout() {
   const [difficulty, setDifficulty] = useState(0);
@@ -25,52 +23,26 @@ export default function Layout() {
   }
 
   return (
-    <BottomSheetModalProvider>
-      <Tabs
-        screenOptions={{
-          tabBarShowLabel: false, // hide labels
-          headerShown: false, // hide the header
-          tabBarActiveTintColor: "#e91e63",
+    <Stack
+      screenOptions={{
+        headerTransparent: true,
+        title: null,
+      }}
+    >
+      <Stack.Screen name="tabs" />
+      <Stack.Screen
+        name="game"
+        options={{
+          headerLeft: () => (
+            <Icon
+              name="close"
+              type="antdesign"
+              size={30}
+              onPress={() => router.back()}
+            />
+          ),
         }}
-      >
-        <Tabs.Screen
-          // Name of the route to hide.
-          name="index"
-          options={{
-            // This tab will no longer show up in the tab bar.
-            href: null,
-          }}
-        />
-        <Tabs.Screen
-          name="home"
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="home" type="antdesign" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="statistics"
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon
-                name="barschart"
-                type="antdesign"
-                color={color}
-                size={size}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="settings"
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="setting" type="antdesign" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tabs>
-    </BottomSheetModalProvider>
+      />
+    </Stack>
   );
 }

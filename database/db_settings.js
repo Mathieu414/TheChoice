@@ -2,8 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const storeSettings = async (settings) => {
   try {
-    console.log("settings", settings);
     await AsyncStorage.setItem("settings", JSON.stringify(settings));
+    console.log("settings stored");
   } catch (error) {
     console.log(error);
   }

@@ -7,7 +7,7 @@ import {
   getUserStatistics,
   mergeUserStatistics,
   removeStatistics,
-} from "../database/db_statistics";
+} from "../../database/db_statistics";
 import { Stack, useRouter } from "expo-router";
 import { useIsFocused } from "@react-navigation/native";
 

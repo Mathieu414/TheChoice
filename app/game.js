@@ -6,10 +6,9 @@ import React, {
   useState,
   useContext,
 } from "react";
-import { useWindowDimensions } from "react-native";
-import { useFocusEffect } from "expo-router";
+import { useWindowDimensions, ActivityIndicator } from "react-native";
+import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Icon } from "@rneui/themed";
 import { useIsFocused } from "@react-navigation/native";
 
 import RouteChoice from "../components/home/RouteChoice/RouteChoice";
@@ -18,11 +17,12 @@ import { updateStatistics, removeStatistics } from "../database/db_statistics";
 import { getSettings } from "../database/db_settings";
 import ChoiceButtons from "../components/home/ChoiceButtons/ChoiceButtons";
 import AnswerBottomSheet from "../components/home/AnswerBottomSheet/AnswerBottomSheet";
+import { View } from "react-native-web";
 
-const App = () => {
+const Game = () => {
   const { height, width, scale, fonctScale } = useWindowDimensions();
-  const svgHeight = height * 0.8;
-  const yOffset = 80;
+  const svgHeight = height * 0.7;
+  const yOffset = 20;
 
   const [totalDistance1, setTotalDistance1] = useState(0);
   const [totalDistance2, setTotalDistance2] = useState(0);
@@ -40,23 +40,23 @@ const App = () => {
       const storedDifficulty = await getSettings();
       setDifficulty(storedDifficulty);
       console.log("difficulty fetched");
+      setLoading(false);
     }
     console.log("fetchDifficulty");
     fetchDifficulty();
-    setLoading(false);
-  }, []);
+  }, [isFocused]);
+
+  console.log("difficulty", difficulty);
 
   useEffect(() => {
     console.log("useEffect points loading");
     console.log("loading", loading);
     !loading ? updatePoints() : null;
     if (!isFocused) {
-      bottomSheetModalRef.current?.dismiss();
+      setIsBottomSheetVisible(false);
       setDisplaySegments(false);
     }
-  }, [difficulty, isFocused]);
-
-  console.log("difficulty", difficulty);
+  }, [difficulty, isFocused, loading]);
 
   const updatePoints = () => {
     console.log("updatePoints");
@@ -98,20 +98,11 @@ const App = () => {
     }
     updateStatistics(answer, totalDistance1 - totalDistance2);
     console.log("handleButtonPress");
-    handlePresentModalPress();
+    setIsBottomSheetVisible(true);
     setDisplaySegments(true);
   };
 
-  // ref
-  const bottomSheetModalRef = useRef(null);
-
-  // variables
-  const snapPoints = useMemo(() => ["20%"], []);
-
-  // callbacks
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
+  const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 
   return (
     <>
@@ -126,8 +117,8 @@ const App = () => {
         />
         <ChoiceButtons pressCallback={handleButtonPress} />
         <AnswerBottomSheet
-          bottomSheetModalRef={bottomSheetModalRef}
-          snapPoints={snapPoints}
+          isVisible={isBottomSheetVisible}
+          setIsVisible={setIsBottomSheetVisible}
           answer={answer}
           updatePoints={() => {
             updatePoints();
@@ -141,4 +132,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Game;

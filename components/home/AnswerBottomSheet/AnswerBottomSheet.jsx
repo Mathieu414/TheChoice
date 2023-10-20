@@ -1,34 +1,27 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-import { BottomSheetModal, BottomSheetBackdrop, TouchableOpacity } from '@gorhom/bottom-sheet'
-import { Icon, Button } from '@rneui/themed'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { Icon, Button, BottomSheet } from '@rneui/themed'
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 import styles from './answerbottomsheet.styles'
 
-const AnswerBottomSheet = ({ bottomSheetModalRef, snapPoints, answer, updatePoints, totalDistance1, totalDistance2, }) => {
+const AnswerBottomSheet = gestureHandlerRootHOC(({ isVisible, setIsVisible, answer, updatePoints, totalDistance1, totalDistance2 }) => {
   const textColor = answer ? 'green' : 'red';
 
+  // if the black is shortest then shortestRoute is true, else it is false
+  const shortestRoute = totalDistance1 < totalDistance2;
+
   return (
-    <BottomSheetModal
-      ref={bottomSheetModalRef}
-      index={0}
-      snapPoints={snapPoints}
-      backdropComponent={(props) => (
-        <BottomSheetBackdrop
-          {...props}
-          disappearsOnIndex={-1}
-          appearsOnIndex={0}
-          opacity={0.3}
-          onPress={updatePoints}
-        />
-      )}
-    >
+    <BottomSheet isVisible={isVisible} containerStyle={{ backgroundColor: 'transparent' }}>
       <View
         style={{
           flex: 1,
-          paddingHorizontal: 24,
+          padding: 24,
           flexDirection: 'column',
           justifyContent: 'space-around',
+          backgroundColor: 'white',
+          borderTopWidth: 3,
+          borderTopColor: 'rgb(190, 190, 190)',
         }}
       >
 
@@ -40,12 +33,13 @@ const AnswerBottomSheet = ({ bottomSheetModalRef, snapPoints, answer, updatePoin
         </View>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-          <Text style={[styles.text, { color: textColor }]}>
-            {`Choix noir : ${Math.round(totalDistance1)}m`}
-          </Text>
-          <Text style={[styles.text, { color: textColor }]}>
-            {`Choix rouge : ${Math.round(totalDistance2)}m`}
-          </Text>
+          {
+            <Text style={[styles.text, { color: textColor }]}>
+              {`Choix ${!shortestRoute ? "noir" : "rouge"} : + ${Math.round(Math.abs(totalDistance1 - totalDistance2))}m`}
+            </Text>
+          }
+
+
         </View>
         <View style={{
           marginHorizontal: 50,
@@ -56,13 +50,14 @@ const AnswerBottomSheet = ({ bottomSheetModalRef, snapPoints, answer, updatePoin
             borderRadius: 5,
             padding: 8,
             alignItems: 'center',
-          }} onPress={() => { bottomSheetModalRef.current?.dismiss(); updatePoints(); }}>
+          }} onPress={() => { setIsVisible(false); updatePoints(); }}>
             <Text style={{ fontSize: 20, fontFamily: "DMBold", color: "white" }}>Continuer</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </BottomSheetModal>
-  )
+    </BottomSheet>
+  );
 }
+);
 
 export default AnswerBottomSheet

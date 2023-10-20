@@ -2,8 +2,9 @@ import { React, useEffect, useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Slider, Text, Icon, ListItem } from "@rneui/themed";
-import MyContext from "../components/MyContext";
-import { storeSettings, getSettings } from "../database/db_settings";
+import MyContext from "../../components/MyContext";
+import { storeSettings, getSettings } from "../../database/db_settings";
+import { removeStatistics } from "../../database/db_statistics";
 
 const difficultyMap = {
   0: "Facile",
@@ -24,9 +25,13 @@ const Settings = () => {
     fetchDifficulty();
   }, []);
 
+  console.log("difficulty", difficulty);
+
   const sliderChange = (value) => {
+    console.log("value", value);
     storeSettings(value);
     setDifficulty(value);
+    removeStatistics();
   };
 
   return (
@@ -52,7 +57,7 @@ const Settings = () => {
               <View style={styles.contentView}>
                 <Slider
                   value={difficulty}
-                  onValueChange={sliderChange}
+                  onSlidingComplete={sliderChange}
                   maximumValue={3}
                   minimumValue={0}
                   step={1}
