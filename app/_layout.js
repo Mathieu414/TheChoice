@@ -25,20 +25,20 @@ export default function Layout() {
   return (
     <Stack
       screenOptions={{
-        headerTransparent: true,
-        title: null,
+        headerShown: false, // hide the header
       }}
     >
       <Stack.Screen name="tabs" />
+      <Stack.Screen name="game" />
       <Stack.Screen
-        name="game"
+        name="statistics"
         options={{
           headerLeft: () => (
             <Icon
               name="close"
               type="antdesign"
               size={30}
-              onPress={() => router.back()}
+              onPress={() => router.replace("tabs/home")}
             />
           ),
         }}

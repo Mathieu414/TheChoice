@@ -34,26 +34,21 @@ export const removeStatistics = async () => {
   }
 };
 
-export const updateStatistics = async (answer, difference) => {
+export const updateStatistics = async (id, data) => {
   let userStatistics = await getUserStatistics();
 
   console.log("User statistics : ", userStatistics);
 
+  console.log("Id : ", id);
+
   if (userStatistics != null) {
-    let newUserStatistics = {
-      score: answer,
-      difference: Math.abs(difference),
-    };
-    userStatistics.push(newUserStatistics);
+    userStatistics[id] = data;
     console.log("New user statistics : ", userStatistics);
     await storeUserStatistics(userStatistics);
   } else {
-    const newUserStatistics = [
-      {
-        score: answer,
-        difference: Math.abs(difference),
-      },
-    ];
+    const newUserStatistics = {
+      id: data,
+    };
     console.log("New user statistics : ", newUserStatistics);
     await storeUserStatistics(newUserStatistics);
   }

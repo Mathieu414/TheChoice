@@ -1,25 +1,22 @@
-import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useEffect,
-  useState,
-  useContext,
-} from "react";
+import React, { useEffect, useState } from "react";
 import { useWindowDimensions, ActivityIndicator } from "react-native";
-import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useIsFocused } from "@react-navigation/native";
+import { router } from "expo-router";
 
-import RouteChoice from "../components/home/RouteChoice/RouteChoice";
-import { generatePaths } from "../utils/utils";
-import { updateStatistics, removeStatistics } from "../database/db_statistics";
-import { getSettings } from "../database/db_settings";
-import ChoiceButtons from "../components/home/ChoiceButtons/ChoiceButtons";
-import AnswerBottomSheet from "../components/home/AnswerBottomSheet/AnswerBottomSheet";
-import { View } from "react-native-web";
+import RouteChoice from "../../components/home/RouteChoice/RouteChoice";
+import { generatePaths } from "../../utils/utils";
+import {
+  updateStatistics,
+  removeStatistics,
+} from "../../database/db_statistics";
+import { getSettings } from "../../database/db_settings";
+import ChoiceButtons from "../../components/home/ChoiceButtons/ChoiceButtons";
+import AnswerBottomSheet from "../../components/home/AnswerBottomSheet/AnswerBottomSheet";
+import { getCurrentDateTimeString } from "../../utils/utils";
 
 const Game = () => {
+  // get the window dimensions
   const { height, width, scale, fonctScale } = useWindowDimensions();
   const svgHeight = height * 0.7;
   const yOffset = 20;
@@ -31,10 +28,16 @@ const Game = () => {
   const [points2, setPoints2] = useState("");
 
   const [difficulty, setDifficulty] = useState(0);
+
   const [loading, setLoading] = useState(true);
 
   const isFocused = useIsFocused();
 
+  const [sessionCount, setSessionCount] = useState(0);
+
+  const [sessionScore, setSessionScore] = useState([]);
+
+  // fetch difficulty from database
   useEffect(() => {
     async function fetchDifficulty() {
       const storedDifficulty = await getSettings();
@@ -48,6 +51,7 @@ const Game = () => {
 
   console.log("difficulty", difficulty);
 
+  // update points when difficulty changes
   useEffect(() => {
     console.log("useEffect points loading");
     console.log("loading", loading);
@@ -87,7 +91,7 @@ const Game = () => {
 
   const [displaySegments, setDisplaySegments] = useState(false);
 
-  const handleButtonPress = (buttonNumber) => {
+  const choiceButtonPress = (buttonNumber) => {
     if (
       (buttonNumber === 1 && totalDistance1 < totalDistance2) ||
       (buttonNumber === 2 && totalDistance2 < totalDistance1)
@@ -96,13 +100,34 @@ const Game = () => {
     } else {
       setAnswer(false);
     }
-    updateStatistics(answer, totalDistance1 - totalDistance2);
-    console.log("handleButtonPress");
+    setSessionCount(sessionCount + 1);
+    setSessionScore([
+      ...sessionScore,
+      { answer: answer, difference: Math.abs(totalDistance1 - totalDistance2) },
+    ]);
+    console.log("choiceButtonPress");
     setIsBottomSheetVisible(true);
     setDisplaySegments(true);
   };
 
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
+
+  const continueButtonPress = () => {
+    setIsBottomSheetVisible(false);
+    updatePoints();
+    setDisplaySegments(false);
+    if (sessionCount === 5) {
+      setSessionCount(0);
+      setSessionScore([]);
+      const dateString = getCurrentDateTimeString();
+      console.log("dateString", dateString);
+      updateStatistics(dateString, sessionScore).then(() => {
+        router.push("statistics/" + dateString);
+      });
+    }
+  };
+
+  console.log("sessionCount", sessionCount);
 
   return (
     <>
@@ -115,17 +140,15 @@ const Game = () => {
           yOffset={yOffset}
           segments={displaySegments}
         />
-        <ChoiceButtons pressCallback={handleButtonPress} />
+        <ChoiceButtons pressCallback={choiceButtonPress} />
         <AnswerBottomSheet
           isVisible={isBottomSheetVisible}
-          setIsVisible={setIsBottomSheetVisible}
           answer={answer}
-          updatePoints={() => {
-            updatePoints();
-            setDisplaySegments(false);
-          }}
           totalDistance1={totalDistance1}
           totalDistance2={totalDistance2}
+          continueButtonPress={() => {
+            continueButtonPress();
+          }}
         />
       </SafeAreaView>
     </>

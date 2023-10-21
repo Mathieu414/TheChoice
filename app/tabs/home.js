@@ -10,7 +10,7 @@ import { router } from "expo-router";
 
 const App = () => {
   const handleGamePress = () => {
-    router.push("game");
+    router.push("game/game_view");
   };
 
   return (
