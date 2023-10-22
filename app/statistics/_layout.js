@@ -18,7 +18,7 @@ export default function Layout() {
               name="close"
               type="antdesign"
               size={30}
-              onPress={() => router.replace("tabs/home")}
+              onPress={() => router.replace("tabs/statistics")}
             />
           ),
         }}

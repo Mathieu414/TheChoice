@@ -37,21 +37,11 @@ const Settings = () => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <View style={{ alignItems: "center" }}>
-          <Text
-            style={{
-              fontSize: 30,
-              fontFamily: "DMBold",
-              marginBottom: 20,
-            }}
-          >
-            Settings
-          </Text>
-        </View>
+        <Text style={styles.title}>Settings</Text>
         <View style={{ backgroundColor: "red" }}>
           <ListItem bottomDivider>
             <ListItem.Content>
-              <ListItem.Title style={styles.title}>
+              <ListItem.Title style={styles.listTitle}>
                 Niveau de difficulté
               </ListItem.Title>
               <View style={styles.contentView}>
@@ -96,16 +86,21 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginBottom: 10,
   },
-  title: {
-    fontSize: 18,
-    color: "grey",
-    fontFamily: "DMRegular",
+  listTitle: {
+    fontSize: 25,
+    fontFamily: "DMBold",
   },
   textIndicator: {
     fontSize: 15,
     color: "grey",
     fontFamily: "DMRegular",
     alignItems: "center",
+  },
+  title: {
+    fontFamily: "DMBold",
+    fontSize: 30,
+    margin: 20,
+    textAlign: "center",
   },
 });
 

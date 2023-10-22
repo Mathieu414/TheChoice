@@ -54,7 +54,7 @@ export default function SessionStatistics() {
                 margin: 20,
               }}
             >
-              Statistiques
+              Récap
             </Text>
           </View>
           <View style={styles.scoreContainer}>
@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   scoreText: {
+    fontFamily: "DMBold",
     fontSize: 80,
-    fontWeight: "bold",
   },
   scoreSubtitle: {
     fontSize: 18,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     fontFamily: "DMRegular",
   },
   successText: {
+    fontFamily: "DMBold",
     fontSize: 40,
-    fontWeight: "bold",
   },
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useWindowDimensions, ActivityIndicator } from "react-native";
+import { useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useIsFocused } from "@react-navigation/native";
 import { router } from "expo-router";
@@ -116,7 +116,7 @@ const Game = () => {
     setIsBottomSheetVisible(false);
     updatePoints();
     setDisplaySegments(false);
-    if (sessionCount === 5) {
+    if (sessionCount === 10) {
       setSessionCount(0);
       setSessionScore([]);
       const dateString = getCurrentDateTimeString();

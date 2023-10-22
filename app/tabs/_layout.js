@@ -8,6 +8,7 @@ export default function Layout() {
     <Tabs
       screenOptions={{
         headerShown: false, // hide the header
+        tabBarShowLabel: false, // hide the label
         tabBarActiveTintColor: "#e91e63",
       }}
     >

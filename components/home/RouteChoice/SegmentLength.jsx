@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
-import { Polyline, Text } from "react-native-svg";
+import { View } from "react-native";
+import { Text } from "react-native-svg";
+import { useWindowDimensions } from "react-native";
 
 const SegmentLength = ({ stroke, points }) => {
+
+    // get the window dimensions
+    const { height, width, scale, fonctScale } = useWindowDimensions();
 
     let totalDistance = 0;
     let accumulatedDistance = [0];
@@ -17,7 +22,20 @@ const SegmentLength = ({ stroke, points }) => {
     return (
         <>
             {points.split(" ").map((point, index) => {
-                const [x, y] = point.split(",");
+                let [x, y] = point.split(",");
+                if (x < 20) {
+                    x = 20;
+                }
+                if (x > width - 20) {
+                    x = width - 20;
+                }
+                if (y < 30 && stroke === "black") {
+                    y = 30;
+                    x = x - 35;
+                }
+                if (y < 30 && stroke === "red") {
+                    y = 30;
+                }
                 return (
                     <Text
                         key={index}

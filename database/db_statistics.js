@@ -34,6 +34,19 @@ export const removeStatistics = async () => {
   }
 };
 
+export const removeStatisticsById = async (id) => {
+  try {
+    let userStatistics = await getUserStatistics();
+    delete userStatistics[id];
+    if (userStatistics == []) {
+      userStatistics = null;
+    }
+    await storeUserStatistics(userStatistics);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const updateStatistics = async (id, data) => {
   let userStatistics = await getUserStatistics();
 
@@ -47,7 +60,7 @@ export const updateStatistics = async (id, data) => {
     await storeUserStatistics(userStatistics);
   } else {
     const newUserStatistics = {
-      id: data,
+      [id]: data,
     };
     console.log("New user statistics : ", newUserStatistics);
     await storeUserStatistics(newUserStatistics);
