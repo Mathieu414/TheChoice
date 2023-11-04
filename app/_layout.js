@@ -11,11 +11,6 @@ export default function Layout() {
     DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
     DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
     DMRegular: require("../assets/fonts/DMSans-Regular.ttf"),
-    ComfortaaBold: require("../assets/fonts/Comfortaa-Bold.ttf"),
-    ComfortaaRegular: require("../assets/fonts/Comfortaa-Regular.ttf"),
-    ComfortaaLight: require("../assets/fonts/Comfortaa-Light.ttf"),
-    ComfortaaMedium: require("../assets/fonts/Comfortaa-Medium.ttf"),
-    ComfortaaSemiBold: require("../assets/fonts/Comfortaa-SemiBold.ttf"),
   });
 
   if (!fontsLoaded) {

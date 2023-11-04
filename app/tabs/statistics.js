@@ -99,7 +99,7 @@ export default function Statistics() {
               </Link>
             ))
           ) : (
-            <Text style={styles.defaultText}>No statistics</Text>
+            <Text style={styles.defaultText}>Pas de sessions enregistrées</Text>
           )}
         </ScrollView>
       </SafeAreaView>

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "the-choice-app",
+  "private_key_id": "df1ca46226f13a296615492328d7c600722bdbcf",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDUdBYtF+qzzlR4\nZ0NSNUsiF4uuRjiWdbTj5wUiwTF5xQNIKdjBJhB+vh/Sf8B2oN7sObUFn7b1nwPX\newX8sLjw7HNao8FFyABma49b/sJEVIvmBup4aaRgrIdX9D3jOztXYB+eBi0WNs2+\nwOSgDEw3Tx4VAM1HvXMAAwDQ/UPlg5ftDa/L2HTZij7eiJhuitO8M+jw3s2A1xHI\nAwHB4GsS4ROZIuUSq8/9X/gy4FNVtpN41JdcQvLDZWUDpSlhd9Hn46wCcpG+zT4/\nL4ISDqgOORciIUcGFne5i44d1Ze7AS6bSuaVyO26HPTP5SVJGv2F2plUgEGu+7ZO\nhgd6amADAgMBAAECggEAFItjR5oL+rZFqd0GgBEiQlo3ijNFLpuUUgOZlgpLoARi\ntFxDly34o2D8T81FzdLxq7NK44/Vz/vAEdrWMeDfCYE8CHRUcMyN6VmWY+WHYLcy\nThy2GM3SdPzKG8HFKE+mheUIOa5MNt022S7rDOUTi7etZ4eL0leqIsKnlg4fvjZl\nt8cuDL1bb321vg8wiRJaZyPPqfTQODm3Y6vQDut0HCbw6fWqHyNA/AKO5N8hU6Fj\n2B2+62OlvALyKX2GLsbU6Z9AqvLxZD5DrC156Az6tbkMBTae3oUm3KOxA6sa2Qv/\nNGAOt3zKKo4zF7f22pUzsHzlfWOYrFUPl0FtITZFiQKBgQD+o2EUubkJwveZw/+D\nahwMEd6Dv0jz2gGjZ5QPO0RP3jkN1/lnFDauBeaizJfAObKC6nV0DZsyS8YEfPC+\nb33aAA0LdCVO150iqlIZh7sEFF+QHRo40VAFifRA51Enpa8xL4O3HrXO3wvtFhHz\nH/V1f9Ta1M6rEDNO4GLT4NBhGwKBgQDVlvP4NBkmbHc/gCu02QNfPvTXGGZ7BqwV\nMLL7i2qPrcwcvjXJ++XEizcM1W2MO1pt2NClHASiSUM68RN6qq36jaaqztPXjBeS\nTZ+Kc051oqXaYiGSNam69wlekWuYNYVcjh976O0fkaKBQYcmgUj8mCVfuMmuYAVC\n68ipdytTOQKBgQCCZ/OA5Lhhymp5YgoKKB5jBAe72wumbqBmKdaGkmiiqoD3mQLO\nCmkSaE08VKDmveWw7Bforksrz+iCReYY8Qo3yczkb7/nh76ekTFoh718El76dB0I\nuhFMNOFVF+HU9yIog1fmQSEE5++4pJPeuiA/446D33ZT3wEXxQx3y+uLvwKBgACC\n/RCiJ1FFPz/isbgcMPrgbru5Lj2rNWxTkooxuk6fzvZeqkhSlylSYA5i0IFefwf2\nVgGfQI+W91dDzpUjpYkNH9IW7sD8b+4Ey5YMUqrLefQ8+fGcuUxeXSJh3M0fi7M+\nD+s/EppZwfbnTkiUVLVuM+C305vcVQblA7UMOQlZAoGAI7Iruc+31noksPihVFKQ\nMl7r2jm78vdsx9NubDgfAiW4wLC02kokYcmA71cmHeFzyXjZqTbxqDIQIqVCyemR\n7nl0sYl8qNvOXfrTO2bNOCxfupXHiEBNyxWZ+BJzYKVh5fL+6JpZwKEJW9sCu1LD\n3aCaCLnCx+hLS+xV6OqGlJ8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "play-console-service-account@the-choice-app.iam.gserviceaccount.com",
+  "client_id": "111722146969450541407",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/play-console-service-account%40the-choice-app.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

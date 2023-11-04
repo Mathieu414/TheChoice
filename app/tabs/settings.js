@@ -1,7 +1,7 @@
 import { React, useEffect, useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Slider, Text, Icon, ListItem } from "@rneui/themed";
+import { Slider, Text, Icon, ListItem, Button } from "@rneui/themed";
 import MyContext from "../../components/MyContext";
 import { storeSettings, getSettings } from "../../database/db_settings";
 import { removeStatistics } from "../../database/db_statistics";
@@ -38,7 +38,7 @@ const Settings = () => {
     <>
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}>Settings</Text>
-        <View style={{ backgroundColor: "red" }}>
+        <View>
           <ListItem bottomDivider>
             <ListItem.Content>
               <ListItem.Title style={styles.listTitle}>
@@ -65,6 +65,28 @@ const Settings = () => {
               </View>
             </ListItem.Content>
           </ListItem>
+        </View>
+        <View style={{ flex: 1, justifyContent: "flex-end" }}>
+          <Button
+            title="Remise à zéro"
+            buttonStyle={{
+              borderColor: "red",
+            }}
+            type="outline"
+            titleStyle={{ color: "red", fontFamily: "DMBold" }}
+            containerStyle={{
+              marginHorizontal: 70,
+              marginVertical: 40,
+            }}
+            icon={{
+              name: "delete",
+              type: "antdesign",
+              color: "red",
+            }}
+            onPress={() => {
+              removeStatistics();
+            }}
+          />
         </View>
       </SafeAreaView>
     </>

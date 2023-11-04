@@ -54,7 +54,6 @@ const Game = () => {
   // update points when difficulty changes
   useEffect(() => {
     console.log("useEffect points loading");
-    console.log("loading", loading);
     !loading ? updatePoints() : null;
     if (!isFocused) {
       setIsBottomSheetVisible(false);
@@ -122,7 +121,7 @@ const Game = () => {
       const dateString = getCurrentDateTimeString();
       console.log("dateString", dateString);
       updateStatistics(dateString, sessionScore).then(() => {
-        router.push("statistics/" + dateString);
+        router.replace("statistics/" + dateString + "?canPlayAgain=true");
       });
     }
   };
