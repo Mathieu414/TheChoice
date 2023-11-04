@@ -16,10 +16,16 @@
         "buildType": "apk"
       }
     },
-    "production": {}
+    "production": {
+    }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "the-choice-app-60b8ec2eace8.json",
+        "track": "internal"
+      }
+    }
   }
 }
 
