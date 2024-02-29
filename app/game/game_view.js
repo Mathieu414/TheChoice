@@ -37,6 +37,8 @@ const Game = () => {
 
   const [sessionScore, setSessionScore] = useState([]);
 
+  const [time, setTime] = useState([0, 0]);
+
   // fetch difficulty from database
   useEffect(() => {
     async function fetchDifficulty() {
@@ -84,6 +86,7 @@ const Game = () => {
     setTotalDistance2(newTotalDistance2);
     setPoints1(newPoints1);
     setPoints2(newPoints2);
+    setTime([Date.now(), 0]);
   };
 
   const [answer, setAnswer] = useState(false);
@@ -91,22 +94,32 @@ const Game = () => {
   const [displaySegments, setDisplaySegments] = useState(false);
 
   const choiceButtonPress = (buttonNumber) => {
+    // define an answer variable to store the user's answer locally.
+    var answer;
+    console.log("button pressed : ", buttonNumber);
+    //TODO: add time here
     if (
       (buttonNumber === 1 && totalDistance1 < totalDistance2) ||
       (buttonNumber === 2 && totalDistance2 < totalDistance1)
     ) {
-      setAnswer(true);
+      answer = true;
     } else {
-      setAnswer(false);
+      answer = false;
     }
     setSessionCount(sessionCount + 1);
     setSessionScore([
       ...sessionScore,
-      { answer: answer, difference: Math.abs(totalDistance1 - totalDistance2) },
+      {
+        answer: answer,
+        difference: Math.abs(totalDistance1 - totalDistance2),
+        time: Date.now() - time[0],
+      },
     ]);
-    console.log("choiceButtonPress");
     setIsBottomSheetVisible(true);
     setDisplaySegments(true);
+    // store the answer variable in the state, which will be executed AFTER the function ends
+    setAnswer(answer);
+    setTime([time[0], Date.now()]);
   };
 
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
@@ -119,7 +132,6 @@ const Game = () => {
       setSessionCount(0);
       setSessionScore([]);
       const dateString = getCurrentDateTimeString();
-      console.log("dateString", dateString);
       updateStatistics(dateString, sessionScore).then(() => {
         router.replace("statistics/" + dateString + "?canPlayAgain=true");
       });
@@ -127,6 +139,8 @@ const Game = () => {
   };
 
   console.log("sessionCount", sessionCount);
+
+  console.log("sessionScore", sessionScore);
 
   return (
     <>
@@ -143,6 +157,7 @@ const Game = () => {
         <AnswerBottomSheet
           isVisible={isBottomSheetVisible}
           answer={answer}
+          time={time[1] - time[0]}
           totalDistance1={totalDistance1}
           totalDistance2={totalDistance2}
           continueButtonPress={() => {

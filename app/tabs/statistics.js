@@ -57,7 +57,7 @@ export default function Statistics() {
     <>
       <SafeAreaView style={styles.container}>
         <ScrollView>
-          <Text style={styles.title}>Sessions</Text>
+          <Text style={styles.title}>Parties</Text>
           {userStatistics ? (
             userStatistics.map(([id, data]) => (
               <Link key={id} href={"statistics/" + id} asChild>
