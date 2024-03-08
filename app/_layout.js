@@ -3,6 +3,7 @@ import { TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
 import { Stack, router } from "expo-router";
 import { Icon } from "@rneui/themed";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Layout() {
   const [difficulty, setDifficulty] = useState(0);
@@ -18,26 +19,28 @@ export default function Layout() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false, // hide the header
-      }}
-    >
-      <Stack.Screen name="tabs" />
-      <Stack.Screen name="game" />
-      <Stack.Screen
-        name="statistics"
-        options={{
-          headerLeft: () => (
-            <Icon
-              name="close"
-              type="antdesign"
-              size={30}
-              onPress={() => router.replace("tabs/home")}
-            />
-          ),
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack
+        screenOptions={{
+          headerShown: false, // hide the header
         }}
-      />
-    </Stack>
+      >
+        <Stack.Screen name="tabs" />
+        <Stack.Screen name="game" />
+        <Stack.Screen
+          name="statistics"
+          options={{
+            headerLeft: () => (
+              <Icon
+                name="close"
+                type="antdesign"
+                size={30}
+                onPress={() => router.replace("tabs/home")}
+              />
+            ),
+          }}
+        />
+      </Stack>
+    </GestureHandlerRootView>
   );
 }

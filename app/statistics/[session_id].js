@@ -92,12 +92,34 @@ export default function SessionStatistics() {
                   </ListItem.Subtitle>
                   <ListItem.Title style={styles.successText}>
                     {userStatistics && falseCount > 0
-                      ? `${Math.round(
-                          userStatistics
-                            .filter((stat) => !stat.answer)
-                            .reduce((acc, stat) => acc + stat.difference, 0) /
+                      ? `${Number(
+                          (
+                            userStatistics
+                              .filter((stat) => !stat.answer)
+                              .reduce((acc, stat) => acc + stat.difference, 0) /
                             falseCount
+                          ).toFixed(2)
                         )}m`
+                      : "-"}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+              <ListItem bottomDivider>
+                <ListItem.Content>
+                  <ListItem.Subtitle style={styles.scoreSubtitle}>
+                    Temps de réponse moyen
+                  </ListItem.Subtitle>
+                  <ListItem.Title style={styles.successText}>
+                    {userStatistics && userStatistics[0].hasOwnProperty("time")
+                      ? `${Number(
+                          (
+                            userStatistics.reduce(
+                              (acc, stat) => acc + stat.time,
+                              0
+                            ) /
+                            ((falseCount + trueCount) * 1000)
+                          ).toFixed(2)
+                        )}s`
                       : "-"}
                   </ListItem.Title>
                 </ListItem.Content>

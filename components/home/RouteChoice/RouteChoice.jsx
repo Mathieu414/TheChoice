@@ -43,8 +43,6 @@ const RouteChoice = ({ svgHeight, windowWidth, points1, points2, yOffset, segmen
       strokeWidth="2.5"
       fillOpacity={0}
     />
-    {segments && <SegmentLength points={points1} stroke="black" />}
-    {segments && <SegmentLength points={points2} stroke="red" />}
   </Svg>
 }
 

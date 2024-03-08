@@ -5,7 +5,7 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 import styles from './answerbottomsheet.styles'
 
-const AnswerBottomSheet = gestureHandlerRootHOC(({ isVisible, answer, totalDistance1, totalDistance2, continueButtonPress }) => {
+const AnswerBottomSheet = gestureHandlerRootHOC(({ isVisible, answer, time, totalDistance1, totalDistance2, continueButtonPress }) => {
   const textColor = answer ? 'green' : 'red';
 
   // if the black is shortest then shortestRoute is true, else it is false
@@ -33,9 +33,15 @@ const AnswerBottomSheet = gestureHandlerRootHOC(({ isVisible, answer, totalDista
         </View>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+          <Text style={[styles.text, { color: textColor }]}>
+            {`Temps : ${Number((time / 1000).toFixed(2))}s`}
+          </Text>
+        </View>
+
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
           {
             <Text style={[styles.text, { color: textColor }]}>
-              {`Choix ${!shortestRoute ? "noir" : "rouge"} : + ${Math.round(Math.abs(totalDistance1 - totalDistance2))}m`}
+              {`Choix ${!shortestRoute ? "noir" : "rouge"} : ${answer ? "-" : "+"} ${Math.round(Math.abs(totalDistance1 - totalDistance2))}m`}
             </Text>
           }
 
