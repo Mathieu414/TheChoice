@@ -64,7 +64,6 @@ const Game = () => {
   }, [difficulty, isFocused, loading]);
 
   const updatePoints = () => {
-    console.log("updatePoints");
     const maxPoints = 7;
     const minDistance = svgHeight / maxPoints;
     const maxDistance = svgHeight / (maxPoints / 2);
